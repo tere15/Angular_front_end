@@ -22,6 +22,7 @@ var app = express();    // luodaan serveri
 
 //Bodyparser json() middleware parses the json object
 //from HTTP POST request
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(function(req,res,next){                     
     
@@ -49,7 +50,7 @@ app.use('/FrontEnd/factories',express.static(path.join(__dirname, '../FrontEnd/f
 //app.use('/lib',express.static(path.join(__dirname, 'lib')));    
 
 //===========================OUR REST API MIDDLEWARES=================================//
-
+app.use(bodyParser.json());
 app.use('/persons',person);    
 app.use('/friends',user);       
 
