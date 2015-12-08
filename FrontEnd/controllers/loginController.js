@@ -35,5 +35,35 @@ main_module.controller('controllerLogin',function($scope,loginFactory,$location)
         });
     }
     
+    $scope.registerClicked = function(){
+        
+        console.log('register was pressed');
+        //kutsu loginFactoriin
+        
+        var temp = {
+            username:$scope.user,
+            password:$scope.pass
+        }
+        
+        var response = loginFactory.startRegister(temp);
+        
+        response.then(success,error)
+        
+    }
     
 });
+
+function success(data){
+    
+    alert('New person registered. You can now login with your credintentials');
+    
+}
+
+function error(data){
+    
+    alert('Registering person failed. Username already in use');
+}
+
+
+
+

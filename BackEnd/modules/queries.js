@@ -117,20 +117,15 @@ exports.registerFriend = function(req,res){
     friend.save(function(err){
                 
         if(err){
-            res.send(502,{status:err.message});
+            res.send(500,{status:err.message});
              // "Registration failed, please use another userid!"
         }
         
         else{
-            if(data.length >0)
-            {
                res.send(200,{status:"Ok"});
-            }
-            else{
-                res.send(401,{status:"Wrong username or password!"});
-            }
-            
         }
+            
+        
     });
 
 }
@@ -142,15 +137,16 @@ exports.loginFriend = function(req,res){
         password:req.body.password
     }
     
-    db.Friends.find(searchObject,function(err,data){
+    db.Friends.findOne(searchObject,function(err,data){
         
         if(err){
             res.send(502,{status:err.message});
         }else{
              console.log(data);
             //=< 0 means wrong username or password
-            if(data.length > 0){
-           
+            //if(data.length > 0){
+            if(data){
+                req.session.kayttaja = data.username; //jokaisella käyttäjällä oma session objekti
                 res.send(200,{status:"Ok"});
             }
             else{
@@ -163,13 +159,27 @@ exports.loginFriend = function(req,res){
 
 exports.getFriendsByUsername = function(req,res){
     
-    var usern = req.params.username.split("=")[1];  // eka arvo [0], toka arvo [1] 
-    db.Friends.find({username:usern}).  //find-funktio palauttaa aina taulukon, tässä taulukon user-    objekteja
-        populate('friends').exec(function(err,data){ //populate hakee kaikki henkilön ystävien tiedot
+    //var usern = req.params.username.split("=")[1];  
+    // haetaan käyttäjänimi url:stä, eka arvo [0], toka arvo [1] 
+    //find-funktio palauttaa aina taulukon, tässä taulukon user-objekteja
+    //haetaan käyttäjänimi session-objektista
+    db.Friends.findOne({username:req.session.kayttaja}).  
+        populate('friends').exec(function(err,data){ 
+        //populate hakee kaikki henkilön ystävien tiedot
+        //console.log(data);
+        
+            if(data){
+                res.send(data.friends);
+            } 
+            else{ //data = null
+                res.redirect('/');
+            }
         
             console.log(err);
-            console.log(data[0].friends);
-            res.send(data[0].friends);
+            console.log(data.friends);
+            //res.send(data.friends);
+        
+            //tähän datan tarkastukset lisäksi
     });
         
 }

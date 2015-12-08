@@ -12,6 +12,12 @@ var queries = require('./modules/queries');
 var person = require('./modules/person');
 var user = require('./modules/user');
 
+//This is used for creating a secret key value
+//for our session cookie
+var uuid = require('uuid'); 
+
+var session = require('express-session');
+
 var app = express();    // luodaan serveri
 
 //Middlewaret ja routersit käsitellään pinona, jokaisen middlewaren esittelyjärjestys on merkityksellinen
@@ -20,16 +26,28 @@ var app = express();    // luodaan serveri
 // middlewaret esitellään aina ennen routereita
 // käydään läpi, vaikka kutsu olisi osoitettu routerille
 
+//jos cookieta ei ole, luodaan tässä kun session obekti luodaan
+app.use(session({
+    secret:uuid.v1(),
+    cookie:{maxAge:600000} //aika millisekunteina, jos maxAge ei aseteta cookie hävitetään
+}));
+
+
 //Bodyparser json() middleware parses the json object
 //from HTTP POST request
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+
+//session-objekti pitää määritellä ennen näitä
+app.use(bodyParser.json()); //session-objekti tarvii
+app.use(bodyParser.urlencoded()); //session-objekti tarvii
+
+
 app.use(function(req,res,next){                     
     
     console.log(req.method);
     console.log(req.path);
     console.log(__dirname)
     console.log(req.body);
+    console.log(req.session);
     //console.log(database.Person);
     //database.myFunction();
     //Send reques forward in stack
@@ -51,12 +69,17 @@ app.use('/FrontEnd/factories',express.static(path.join(__dirname, '../FrontEnd/f
 
 //===========================OUR REST API MIDDLEWARES=================================//
 app.use(bodyParser.json());
-app.use('/persons',person);    
-app.use('/friends',user);       
+app.use('/persons',person);    //tästä triggeröityy person.js
+app.use('/friends',user);       //tästä triggeröityy user.js
 
 
 //----------------------------ROUTERS------------------------------------------------
 
+app.get('/logout', function(req,res){
+    
+    req.session.destroy();
+    res.redirect('/');
+});
 
 //app.get("/css/styles.css", function(req,res){
     
