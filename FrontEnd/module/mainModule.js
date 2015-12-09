@@ -2,7 +2,6 @@
 //the '[] array' contains the dependencies to other angular modules
 
 
-
 var main_module = angular.module('main_module',['ngRoute', 'ngResource']);
 
 //Create basic configuration for our angular app.
@@ -24,6 +23,22 @@ main_module.config(function($routeProvider){
         templateUrl:'partial_dataView.html',
         controller: 'friendDataController'
     
+    }).when('/new',{
+        
+        templateUrl:'partial_newView.html',
+        controller: 'friendNewController'
+
+        
+    }).when('/modify',{
+        
+        templateUrl:'partial_modifyView.html',
+        controller: 'friendModifyController'
+    
+    }).when('/delete',{
+        
+        templateUrl:'partial_deleteView.html',
+        controller: 'friendDeleteController'
     });
+    
     
 });

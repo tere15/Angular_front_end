@@ -1,8 +1,13 @@
 
+<h5><a href="/logout">Logout </a>
+<a href="#/new" ng-click = 'newClicked()'>New </a>
+<a href="#/modify" ng-click = 'modifyClicked()'>Modify </a>
+<a href="#/delete" ng-click = 'deleteClicked()'>Delete </a></h5>
 
-<h1>Here is the table dat of your friends</h1>
+<!-- tähän linkit muihin näkymiin -->
+<h1>The table of your friends</h1>
 
-<table>
+<table class='table table-hover' ng-click = 'rowSelected()'>
     <thead>
         <tr>
             <th>Name</th>
@@ -12,7 +17,7 @@
     
     </thead>
     <tbody>
-        <tr ng-repeat='person in friendData'> 
+        <tr ng-repeat='person in friendData' ng-click='rowClicked(person._id)'> 
         <!-- person muuttuja voi olla mikä vaan, friendData määritelty friendDataController.js           komponentissa. Taulukko alkaa 0:sta-->
             <td>{{person.name}}</td>
             <td>{{person.address}}</td>            
@@ -21,4 +26,4 @@
     </tbody>
 </table>
 <br>
-<p><a href="/logout">Logout</a></p>
+

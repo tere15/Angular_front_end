@@ -51,12 +51,12 @@ div:firstChild {
 
 .login_container{
     
-    width: 500px;
-    margin: 8px auto;   /*ulkopuolelle tilaa, keskittää elementin*/
-    border: 2px solid black;
+    width: 400px;
+    margin: 30px auto;   /*ulkopuolelle tilaa, keskittää elementin*/
+    border: 2px solid grey; /*yhtenäinen viiva*/
     border-radius: 5px;         /*pyöristetyt kulmat*/
-    background-color:darksalmon;
-    padding: 8px; /*elementin sisälle tilaa*/
+    padding: 20px; /*elementin sisälle tilaa*/    
+    background-color:lightblue;
 }
 
 

@@ -69,7 +69,6 @@ exports.deletePerson = function(req,res){
         }
     });
     
-    
 }
 
 //This method updates one person info

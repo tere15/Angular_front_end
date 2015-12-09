@@ -1,10 +1,15 @@
 
 <p class="error"></p>  
-
-<form>
+<br>
+<br>
+<form class = 'login_container'>
     <!--ng-model directive is the way to tranfer data to controller-->
+    <h4>Login and Register</h4>
+    <br>
     <input type="text" placeholder="username" ng-model="user"><br/>
     <input type="password" placeholder="password" ng-model='pass'><br/>
+    <br>
+    <br>
     <input type="button" value="Login" ng-click='loginClicked()'>    
     <input type="button" value="Register" ng-click='registerClicked()'>
     
