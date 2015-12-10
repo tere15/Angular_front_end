@@ -7,7 +7,7 @@ main_module.controller('friendDataController',function($scope,friendDataFactory,
     $scope.rowClicked = function(id){
         
         friendDataFactory.selected_id = id;
-        $location.path('/modify').replace();
+        
     }
     
     function dataCallback(dataArray){
@@ -37,10 +37,12 @@ main_module.controller('friendDataController',function($scope,friendDataFactory,
     
     $scope.newClicked = function(){
         console.log('new was pressed');
+        $location.path('/new').replace();        
     }
     
     $scope.modifyClicked = function(){
         console.log('modify was pressed');
+        $location.path('/modify').replace();
     }
     
     $scope.deleteClicked = function(){

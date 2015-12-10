@@ -1,4 +1,4 @@
-main_module.factory('friendDataFactory', function($resource){
+main_module.factory('friendDataFactory', function($resource,$http){
         
     var factory = {};
     factory.selected_id = null;
@@ -29,11 +29,13 @@ main_module.factory('friendDataFactory', function($resource){
         }
     }
 
-   /* factory.getFriendData = function(){
+   //Updates the data to back end
+    factory.updateData = function(data){
         
-        var resource = $resource('/friends',{},{'get':{method:'GET'}});
-        return resource.query().$promise;
-    }*/
+        var resource = $resource('/persons',{},{'put':{method:'PUT'}});
+        return resource.put(data).$promise;
+    }
+    
     
     /**
       *This function searches a person from array containing an id
@@ -50,8 +52,30 @@ main_module.factory('friendDataFactory', function($resource){
                 return factory.friendsArray[i];
             }
         }
-        
     }
+    
+    //Adds the data to back end
+    factory.insertData = function(data){
+        
+        var resource = $resource('/persons',{},{'post':{method:'POST'}});
+        return resource.post(data).$promise;
+    }
+    
+    /* factory.getFriendData = function(){
+        
+        var resource = $resource('/friends',{},{'get':{method:'GET'}});
+        return resource.query().$promise;
+    }*/
+    
+    //Adds the data to back end
+    factory.deleteData = function(data){
+       $http.defaults.headers.common['content-type'] = 'application/json'; 
+        var resource = $resource('/persons',{},{'delete':{method:'DELETE'}});
+        return resource.delete(data).$promise;
+    }
+    
+    
+    
                     
                     
     return factory;

@@ -31,21 +31,32 @@ exports.saveNewPerson = function(req,res){
 
     var personTemp = new db.Person(req.body);   //body sisältää json-objektin
     //Save it to database
-    personTemp.save(function(err,ok){
+    personTemp.save(function(err,newData){
         
-        db.Friends.update({username:req.body.user},
+        db.Friends.update({username:req.session.kayttaja},
                          {$push:{'friends':personTemp._id}},
                          function(err,model){
             
             //Make a redirect to root context
-            res.send("Added stuff");
+            //res.send("Added stuff");
+            
+            //console.log("SEND REDIRECT!!!!!");
+            //Make a redirect to root context
+            //res.redirect(301,'/persons.html');
+            if(err){
+                
+                res.status(500).json({message:'Fail'});
+            }else{
+                
+                res.status(200).json({data:newData});
+            }            
         });
 
     });
 }
 
 //This function deletes one person from our collections (mongoose documentation)
-exports.deletePerson = function(req,res){
+/*exports.deletePerson = function(req,res){
     //what happens here is that req.params.id
     //return string "id=34844646bbskjhkjh"
     //split function splits the string form "="
@@ -69,7 +80,38 @@ exports.deletePerson = function(req,res){
         }
     });
     
+}*/
+
+exports.deletePerson = function(req,res){
+    var toDelete = [];
+    if(req.query.forDelete instanceof Array)
+        toDelete = req.query.forDelete;
+    else{
+        
+       toDelete.push(req.query.forDelete); 
+    }
+    console.log(toDelete);
+    db.Person.remove({_id:{$in:toDelete}},function(err,data){
+        
+        if(err){
+            console.log(err);
+            res.status(500).send({message:err.message});
+        }else{
+            
+            db.Friends.update({username:req.session.kayttaja},{$pull:{'friends':{$in:toDelete}}},function(err,data){
+                if(err){
+                    console.log(err);
+                    res.status(500).send({message:err.message});
+                }else{
+                    
+                    res.status(200).send({message:'Delete success'});
+                }
+            });
+        }
+    });
 }
+
+
 
 //This method updates one person info
 exports.updatePerson = function(req,res){

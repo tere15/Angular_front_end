@@ -69,8 +69,8 @@ app.use('/FrontEnd/factories',express.static(path.join(__dirname, '../FrontEnd/f
 
 //===========================OUR REST API MIDDLEWARES=================================//
 app.use(bodyParser.json());
-app.use('/persons',person);    //tästä triggeröityy person.js (käsiteltävä router)
-app.use('/friends',user);       //tästä triggeröityy user.js (käsiteltävä router)
+app.use('/persons',person);    //tästä triggeröityy person.js (käsiteltävä router) (/persons pyyhitään tässä pois)
+app.use('/friends',user);       //tästä triggeröityy user.js (käsiteltävä router) (/friends pyyhitään tässä pois)
 
 
 //----------------------------ROUTERS------------------------------------------------
