@@ -132,11 +132,23 @@ exports.updatePerson = function(req,res){
     *This function searches database by name or
     *by begin letters od name
     */
+
+exports.findPersonsByName = function(req,res){
+
+    var name = req.query.name;
+
+    db.Friends.findOne({username:req.session.kayttaja}).
+        populate({path:'friends',match:{name:{'$regex':'^' + name,'$options':'i'}}}).
+            exec(function(err,data){
+        res.send(data.friends);
+    });
     
-exports.findPersonsByName = function(req,res) {
+}
+
+/*exports.findPersonsByName = function(req,res) {
     
     var name = req.params.nimi.split("=")[1]; //split-operaatio tekee aina taulukon
- var username = req.params.username.split("=")[1]; 
+    var username = req.params.username.split("=")[1]; 
      console.log(name); 
      console.log(username); 
     
@@ -149,7 +161,7 @@ exports.findPersonsByName = function(req,res) {
          res.send(data[0].friends); 
      }); 
 
-}
+}*/
 
 exports.registerFriend = function(req,res){
     

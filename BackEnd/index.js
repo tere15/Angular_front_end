@@ -61,14 +61,16 @@ app.use('/FrontEnd/css',express.static(path.join(__dirname, '../FrontEnd/css')))
 app.use('/FrontEnd/lib',express.static(path.join(__dirname, '../FrontEnd/lib'))); 
 app.use('/FrontEnd/module',express.static(path.join(__dirname, '../FrontEnd/module'))); 
 app.use('/FrontEnd/controllers',express.static(path.join(__dirname, '../FrontEnd/controllers'))); 
-app.use('/FrontEnd/factories',express.static(path.join(__dirname, '../FrontEnd/factories'))); 
+app.use('/FrontEnd/factories',express.static(path.join(__dirname, '../FrontEnd/factories')));
+
+app.use('/FrontEnd/fonts',express.static(path.join(__dirname, '../FrontEnd/fonts')));
 
 //app.use('/css',express.static(path.join(__dirname, 'css')));    
 //app.use('/controllers',express.static(path.join(__dirname, 'controllers')));    
 //app.use('/lib',express.static(path.join(__dirname, 'lib')));    
 
 //===========================OUR REST API MIDDLEWARES=================================//
-app.use(bodyParser.json());
+
 app.use('/persons',person);    //tästä triggeröityy person.js (käsiteltävä router) (/persons pyyhitään tässä pois)
 app.use('/friends',user);       //tästä triggeröityy user.js (käsiteltävä router) (/friends pyyhitään tässä pois)
 
@@ -86,10 +88,27 @@ app.get('/logout', function(req,res){
   //  res.sendfile("css/styles.css"); // palauttaa index.html-tiedoston selaimeen
 //});
 
-app.get("/persons", function(req,res){//
-    queries.getAllPersons(req,res);
-    //res.send("Hello persons there!");
+//This router checks if client is logged in or not
+app.get('/isLogged', function(req,res){
+    //User is logged in if session contains kayttaja attribute
+    if(req.session.kayttaja){
+        res.status(200).send([{status:'Ok'}]);
+    }
+    else{
+        res.status(401).send({status:'Unauthorized'});
+    }
+    
 });
+
+//app.get("/persons", function(req,res){//
+//    queries.getAllPersons(req,res);
+    //res.send("Hello persons there!");
+//});
 
 
 app.listen(3000); // käynnistetään serveri (kuuntele porttia 3000, voi käyttää tässä testissä portteja 3000 ->)
+
+/*http.createServer(app).listen(app.get('port') ,app.get('ip'), function () {
+    console.log("Express server listening at %s:%d ", app.get('ip'),app.get('port'));
+    server();
+});*/

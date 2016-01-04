@@ -3,27 +3,34 @@
 <a href="#/new" ng-click = 'newClicked()'>New </a>
 <a href="#/modify" ng-click = 'modifyClicked()'>Modify </a>
 <a href="#/delete" ng-click = 'deleteClicked()'>Delete </a></h5>
-
-<!-- tähän linkit muihin näkymiin -->
-<h1>The table of your friends</h1>
-
-<table class='table table-hover' ng-click = 'rowSelected()'>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Age</th>
-        </tr>
+<div class='table_container'>
+    <!-- tähän linkit muihin näkymiin -->
+    <h1>The table of your friends</h1>
     
-    </thead>
-    <tbody>
-        <tr ng-repeat='person in friendData' ng-click='rowClicked(person._id)'> 
-        <!-- person muuttuja voi olla mikä vaan, friendData määritelty friendDataController.js           komponentissa. Taulukko alkaa 0:sta-->
-            <td>{{person.name}}</td>
-            <td>{{person.address}}</td>            
-            <td>{{person.age}}</td>            
-        </tr>
-    </tbody>
-</table>
-<br>
+    <p>Search persons...empty search will fetch all your friends</p>
+     <input type="search" class="form-control" value="Search" ng-model='search_term'/><br/>
+    <button class="btn btn-default" value="Search" ng-click='search()'>
+        <span class="glyphicon glyphicon-search"></span>
+        Search
+    </button>
+
+    <table class='table table-hover' ng-click = 'rowSelected()'>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Age</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr ng-repeat='person in friendData' ng-click='rowClicked(person._id)'> 
+            <!-- person muuttuja voi olla mikä vaan, friendData määritelty friendDataController.js           komponentissa. Taulukko alkaa 0:sta-->
+                <td>{{person.name}}</td>
+                <td>{{person.address}}</td>            
+                <td>{{person.age}}</td>            
+            </tr>
+        </tbody>
+    </table>
+</div>
 

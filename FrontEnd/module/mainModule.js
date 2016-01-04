@@ -2,7 +2,32 @@
 //the '[] array' contains the dependencies to other angular modules
 
 
-var main_module = angular.module('main_module',['ngRoute', 'ngResource']);
+var main_module = angular.module('main_module',['ngRoute', 'ngResource', 'flash']);
+
+
+//This function will check if user is logged in or not. This function is used
+//in the router below in resolve attribute
+function loginRequired($q,$resource,$location){
+    
+    //Create a promise
+    var deferred = $q.defer();
+    $resource('/isLogged').query().$promise.then(function success(){
+        //Mark the promise to be solved (or resolved)
+        deferred.resolve();
+        return deferred;
+
+    },function fail(){
+    
+        //Mark promise to be failed
+        deferred.reject();
+        //Go back to root context
+        $location.path('/');
+        return deferred;
+});
+
+    
+    
+}
 
 //Create basic configuration for our angular app.
 //Configuration includes USUALLY a router for our views.
@@ -19,25 +44,33 @@ main_module.config(function($routeProvider){
         // Jos näkymä tarvii tietoa backendiltä, tehään kontrolleri ja liimataan tässä
         //yhteen näkymä ja kontrolleri. Tehään myös factory, jos esim.
         // 2. näkymässä tarvitaan samaa dataa. Factoryssa kaikki data tallessa.
-        
+    
         templateUrl:'partial_dataView.html',
-        controller: 'friendDataController'
+        controller: 'friendDataController',
+        resolve:{loginRequired: loginRequired}
+        
     
     }).when('/new',{
         
         templateUrl:'partial_newView.html',
-        controller: 'friendNewController'
+        controller: 'friendNewController',
+        resolve:{loginRequired: loginRequired}
+
 
         
     }).when('/modify',{
         
         templateUrl:'partial_modifyView.html',
-        controller: 'friendModifyController'
+        controller: 'friendModifyController',
+        resolve:{loginRequired: loginRequired}
+        
     
     }).when('/delete',{
         
         templateUrl:'partial_deleteView.html',
-        controller: 'friendDeleteController'
+        controller: 'friendDeleteController',
+        resolve:{loginRequired: loginRequired}
+        
     });
     
     
