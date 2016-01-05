@@ -8,7 +8,7 @@ main_module.factory('loginFactory',function($resource){
     //implementation
     factory.startLogin = function(data){
         
-            console.log(data);
+            //console.log(data);
             //Create a resource for context '/friends/login'
             var req = $resource('/friends/login',{},{'post':{method:'POST'}}); 
         //Käytettävän resurssin määrittely: konteksti, johon lähetetään, option 
@@ -20,7 +20,7 @@ main_module.factory('loginFactory',function($resource){
     
     factory.startRegister = function(data){
         
-            console.log(data);
+            //console.log(data);
             //Create a resource for context '/friends/login'
             var req = $resource('/friends/register',{},{'post':{method:'POST'}});
             //Use POST method to send the username and password to above context

@@ -2,6 +2,8 @@
 //Tämä tiedosto sisältää tietokantakyselyt jne operaatiot//
 
 var db = require('./database');
+var jwt = require('jsonwebtoken');
+var server = require('../index');
 
 /**
   *This function gets all documents from person collection
@@ -200,7 +202,9 @@ exports.loginFriend = function(req,res){
             //if(data.length > 0){
             if(data){
                 req.session.kayttaja = data.username; //jokaisella käyttäjällä oma session objekti
-                res.send(200,{status:"Ok"});
+                //Create the token
+                var token = jwt.sign(data,server.secret,{expiresIn:'2h'});
+                res.send(200,{status:"Ok",secret:token});
             }
             else{
                 res.send(401,{status:"Wrong username or password"});

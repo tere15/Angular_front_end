@@ -2,21 +2,28 @@
 //the '[] array' contains the dependencies to other angular modules
 
 
-var main_module = angular.module('main_module',['ngRoute', 'ngResource', 'flash']);
+var main_module = angular.module('main_module',['ngRoute', 'ngResource','flash']);
 
 
 //This function will check if user is logged in or not. This function is used
 //in the router below in resolve attribute
-function loginRequired($q,$resource,$location){
+function loginRequired($q,$resource,$location,$http){
     
     //Create a promise
     var deferred = $q.defer();
-    $resource('/isLogged').query().$promise.then(function success(){
-        //Mark the promise to be solved (or resolved)
-        deferred.resolve();
-        return deferred;
+    $http.defaults.headers.common['x-access-token'] = sessionStorage['token'];
+    
+    $resource('/isLogged').query().$promise.then(
+        
+        //Success function
+        function(){
+            //Mark the promise to be solved (or resolved)
+            deferred.resolve();
+            return deferred;
 
-    },function fail(){
+        },
+        //Fail case
+        function(){
     
         //Mark promise to be failed
         deferred.reject();
@@ -28,6 +35,11 @@ function loginRequired($q,$resource,$location){
     
     
 }
+
+main_module.run(function($http){
+    
+    $http.defaults.headers.common['cache-control'] = 'private, no-store, must-revalidate';
+});
 
 //Create basic configuration for our angular app.
 //Configuration includes USUALLY a router for our views.
