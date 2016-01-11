@@ -14,6 +14,7 @@ var database = require('./modules/database');
 var queries = require('./modules/queries');
 var person = require('./modules/person');
 var user = require('./modules/user');
+var mysql_module = require('./modules/mysql_module');
 
 var options = {
     
@@ -115,7 +116,7 @@ app.use(function(req,res,next){
     
     //Send reques forward in stack
     //next(); // seuraavaan middlewareen
-});    
+ });    
 //===========================OUR REST API MIDDLEWARES=================================//
 
 
