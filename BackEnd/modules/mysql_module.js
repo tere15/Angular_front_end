@@ -33,17 +33,21 @@ exports.loginMysql = function(req,res){
     });
 }
 
-exports.loginMysqlProc = function(req,res){
+exports.loginMysqlUser = function(req,res){
+    
     connection.query('CALL getLoginInfo(?,?)', [req.body.username, req.body.password],
                     function(error,results,fields){
             if(error){
                 res.send(502,{status:error.message});
             }else{
-                if(results.length > 0){
-                    req.session.kayttaja = results.username;
+                var test = results[0];
+                
+                if(test.length > 0){
+                    req.session.kayttaja = test[0].username;
+                    req.session.userid = test[0].user_id;
                     //Create the token
                     var token = jwt.sign(results,server.secret,{expiresIn:'2h'});
-                     res.send(201,{status:"Succeed"});
+                     res.send(200,{status:"Succeed",secret:token});
                 }
                 else{
                     res.send(401,{status:"Wrong username or password"});
@@ -51,5 +55,82 @@ exports.loginMysqlProc = function(req,res){
             }
     });
                      
+}
+
+exports.registerMysqlUser = function(req,res){
+    
+    connection.query('CALL insertUser(?,?)', [req.body.username, req.body.password],
+                    function(error,results,fields){
+            
+        
+            if(error){
+            
+                res.status(500).send({status:"Username already in use"});
+                
+            } else{
+                res.status(200).send({status:"Ok"});
+            }
+            
+    });
+}
+
+exports.getUserNameFriends = function(req,res){
+    
+    connection.query('CALL getUserNameFriends(?)',
+    [req.session.kayttaja],function(error,results,fields){
+
+        if(results.length > 0){
+           var data = results[0];
+           res.send(data);
+        }else{
+            res.redirect('/');
+        }
+    });
+
+}
+
+exports.addNewFriend = function(req,res){
+    
+    connection.query('CALL addNewFriend(?,?,?,?)',[req.body.name,
+                                                   req.body.address,
+                                                   req.body.age,
+                                                   req.session.userid],
+    function(error,result,fields){
+         
+        if(error){
+                
+                res.status(500).json({message:'Fail'});
+            }else{
+                
+                res.status(200).json({data:result});
+            }
+    });
     
 }
+
+exports.updateFriend = function(req,res){
+    
+    console.log(req.body.name);
+    console.log(req.body.userid);
+    
+    console.log("mysql_module " + req.body.userid);
+    
+    connection.query('CALL updateFriend(?,?,?,?)',[req.body.name,
+                                                   req.body.address,
+                                                   req.body.age,
+                                                   req.body.userid],
+    
+    function(error,result,fields){
+         
+        if(error){
+                
+                res.status(500).json({message: error});
+            }else{
+                
+                res.status(200).json({MESSAGE:"Data updated"});
+            }
+    });
+    
+}
+
+/*exports.deleteFriends = function*/
