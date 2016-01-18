@@ -1,19 +1,30 @@
 
-<p class="error"></p>  
-<br>
-<br>
-<form class = 'login_container'>
-    <!--ng-model directive is the way to tranfer data to controller-->
-    <h4>Login and Register</h4>
-    <br>
-    <input type="text" placeholder="username" ng-model="user"><br/>
-    <input type="password" placeholder="password" ng-model='pass'><br/>
-    <br>
-    <br>
-    <input type="button" value="Login" ng-click='loginClicked()'>    
-    <input type="button" value="Register" ng-click='registerClicked()'>
-    
-    <!--bind the data from username textfield(use the variable 'user')-->
-    <p>{{user}}</p>
 
-</form>
+<!-- Rule 1: everything must go inside container class -->
+<div class="container">
+<!--<p class="error"></p>  -->
+    <!--Rule 2: every column must be inside a row! (max 12 columns)-->
+    <div class="row">
+        <!--Rule 3 columns are defined in row-->
+        <div style="background-color:blue;" class="col-sm-3 col-md-2">Column1</div>
+        <div style="background-color:green;" class="col-sm-9 col-md-10">Column2</div>        
+              
+    </div>
+    <br>
+    <br>
+    <form class = 'loginForm'>
+        <!--ng-model directive is the way to tranfer data to controller-->
+        <h4>Login and Register</h4>
+        <br>
+        <input type="text" placeholder="username" ng-model="user"><br/>
+        <input type="password" placeholder="password" ng-model='pass'><br/>
+        <br>
+        <br>
+        <input type="button" value="Login" ng-click='loginClicked()'>    
+        <input type="button" value="Register" ng-click='registerClicked()'>
+
+        <!--bind the data from username textfield(use the variable 'user')-->
+        <p>{{user}}</p>
+
+    </form>
+</div>

@@ -1,36 +1,55 @@
 
-<h5><a href="/logout">Logout </a>
+<ng-include src="'navbar.html'"></ng-include>
+<!--<h5><a href="/logout">Logout </a>
 <a href="#/new" ng-click = 'newClicked()'>New </a>
 <a href="#/modify" ng-click = 'modifyClicked()'>Modify </a>
-<a href="#/delete" ng-click = 'deleteClicked()'>Delete </a></h5>
+<a href="#/delete" ng-click = 'deleteClicked()'>Delete </a></h5>-->
+
+<of-example></of-example>
+<!--<div class= "of-example"></div>-->
+<div class="container">
+<div class="row">
+    
 <div class='table_container'>
     <!-- tähän linkit muihin näkymiin -->
-    <h1>The table of your friends</h1>
+        
+        <div style="background-color:blue;" class="col-sm-6">
+           <!--col-md-2-->
     
-    <p>Search persons...empty search will fetch all your friends</p>
-     <input type="search" class="form-control" value="Search" ng-model='search_term'/><br/>
-    <button class="btn btn-default" value="Search" ng-click='search()'>
-        <span class="glyphicon glyphicon-search"></span>
-        Search
-    </button>
+            <h1>The table of your friends</h1>
 
-    <table class='table table-hover' ng-click = 'rowSelected()'>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Age</th>
-            </tr>
+            <p>Search persons...empty search will fetch all your friends</p>
+             <input type="search" class="form-control" value="Search" ng-model='search_term'/><br/>
+            <button class="btn btn-default" value="Search" ng-click='search()'>
+                <span class="glyphicon glyphicon-search"></span>
+                Search
+            </button>
 
-        </thead>
-        <tbody>
-            <tr ng-repeat='person in friendData' ng-click='rowClicked(person._id)'> 
-            <!-- person muuttuja voi olla mikä vaan, friendData määritelty friendDataController.js           komponentissa. Taulukko alkaa 0:sta-->
-                <td>{{person.name}}</td>
-                <td>{{person.address}}</td>            
-                <td>{{person.age}}</td>            
-            </tr>
-        </tbody>
-    </table>
+
+            <table class='table table-hover' ng-click = 'rowSelected()'>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Age</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <tr ng-repeat='person in friendData' ng-click='rowClicked(person._id)'> 
+                    <!-- person muuttuja voi olla mikä vaan, friendData määritelty friendDataController.js komponentissa. Taulukko alkaa 0:sta-->
+                        <td>{{person.name}}</td>
+                        <td>{{person.address}}</td>            
+                        <td>{{person.age}}</td>            
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--<div style="background-color:green;" class:"col-sm-3"></div>-->
+        <div style="background-color:grey;" class="col-sm-6"><h1>This is jumbotron</h1></div>    
+           
+    </div> 
+
+    </div>
 </div>
 
