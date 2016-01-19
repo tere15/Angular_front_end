@@ -1,6 +1,11 @@
 
 main_module.controller('friendNewController',function($scope, friendDataFactory, $location){
     
+    $scope.navbarData ={
+        urls:['/logout','#/modify','#/delete','#/add','http://www.kaleva.fi'],
+        texts:['Logout','Modify', 'Delete', 'Add', 'News']
+    }
+    
  
     console.log('friendNewController loaded');
     

@@ -1,7 +1,14 @@
 main_module.controller('friendDataController',function($scope,friendDataFactory,$location){
     
    $scope.name = "by Markus Veijola";
+    $scope.temp = ['Heikki Hela', 'Risto Mattila', 'Juha Sipilä', 'Teuvo Hakkarainen'];
     console.log('friendDataController loaded');
+    
+    $scope.navbarData = {
+        
+        urls:['/logout','#/modify','#/delete','#/new'],
+        texts:['Logout','Modify','Delete','New']
+    }
     
     friendDataFactory.getFriendData(dataCallback);
     

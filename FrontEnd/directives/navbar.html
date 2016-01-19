@@ -11,11 +11,13 @@
             <a class="navbar-brand" href="#/list">Friends Application</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="/logout">Logout</a></li>
-              <li><a href="#/delete">Delete</a></li>
-              <li><a href="#/new">New</a></li>
-              <li><a href="#/modify">Modify</a></li>                
+            <ul class="nav navbar-nav" ng-repeat="data in navbarData.urls"
+                <li><a href="{{navbarData.urls[$index]}}">{{navbarData.texts[$index]}}</a></li>
+                <li class="active"><a href="/logout">Logout</a></li>
+                <li><a href="#/modify">Modify</a></li>              
+                <li><a href="#/delete">Delete</a></li>
+                <li><a href="#/new">New</a></li>
+                              
 <!--
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>

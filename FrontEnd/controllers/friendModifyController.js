@@ -4,6 +4,11 @@ main_module.controller('friendModifyController',function($scope,friendDataFactor
  
     console.log('friendModifyController loaded');
     
+    $scope.navbarData ={
+        urls:['/logout','#/modify','#/delete','#/new'],
+        texts:['Logout','Modify','Delete', 'New']
+    }
+    
     var selectedFriend = friendDataFactory.getSelectedFriend();
     
     $scope.id = selectedFriend._id;
