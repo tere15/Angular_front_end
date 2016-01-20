@@ -92,7 +92,10 @@ app.get('/logout', function(req,res){
   //  res.sendfile("css/styles.css"); // palauttaa index.html-tiedoston selaimeen
 //});
 
-  
+app.get('/BackEnd/socket.io/socket.io.js',function(req,res){
+   
+    //res.sendfile('/node_modules/socket.io/node_modules/socket.io-client')
+});  
     
 app.use(function(req,res,next){                     
     //Read the token from request
@@ -153,4 +156,17 @@ app.get('/isLogged', function(req,res){
 https.createServer(options,app).listen(app.get('port') ,app.get('ip'), function () {
     console.log("Express server started");
 });
+
+//Server side socket. Note there is ONLY one socket in server
+//that acceps ALL the client connections
+var io = require('socket.io')(https);
+
+//Listen "connection" message from client
+io.on('connection', function(socket){
+    console.log('a user connected');
+    
+});
+
+
+
 

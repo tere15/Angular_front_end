@@ -2,7 +2,7 @@
 //the '[] array' contains the dependencies to other angular modules
 
 
-var main_module = angular.module('main_module',['ngRoute', 'ngResource']);
+var main_module = angular.module('main_module',['ngRoute', 'ngResource','flash']);
 
 
 //This function will check if user is logged in or not. This function is used
@@ -61,6 +61,12 @@ main_module.config(function($routeProvider){
         controller: 'friendDataController',
         resolve:{loginRequired: loginRequired}
         
+ }).when('/modify',{
+        
+        templateUrl:'partial_modifyView.html',
+        controller: 'friendModifyController',
+        resolve:{loginRequired: loginRequired}
+                
     
     }).when('/new',{
         
@@ -68,22 +74,26 @@ main_module.config(function($routeProvider){
         controller: 'friendNewController',
         resolve:{loginRequired: loginRequired}
 
-
-        
-    }).when('/modify',{
-        
-        templateUrl:'partial_modifyView.html',
-        controller: 'friendModifyController',
-        resolve:{loginRequired: loginRequired}
-        
-    
     }).when('/delete',{
         
         templateUrl:'partial_deleteView.html',
         controller: 'friendDeleteController',
         resolve:{loginRequired: loginRequired}
+    
+    
+     }).when('/location',{
+		
+		templateUrl:'here_you_are.html',
+		//resolve:{loginRequired:loginRequired
         
+    }).when('/chat',{
+    
+        templateUrl:'chat_view.html'
+        
+
+    
     });
+    
     
     
 });

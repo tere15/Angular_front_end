@@ -1,63 +1,46 @@
-/*use element selector to select all p elements for this style*/
-
-p{                  /* elementtivalitsin*/
-    color:aqua;
-    font-size: 32px;
-}
-
-div{
-    background-color: bisque;
-}
-
-
-/*Use class selector to define style for elements*/
-.mun_keksima{   /*class valitsin */
-    background-color: aquamarine;
-}
-
-.fancy{
-    color: green;
-    border: 2px;
-    background-color: aquamarine;
-    border-radius: 8px;
-}
-
-/*Use id selector to define style*/
-#joku_tyyli{
-    margin: 100px;
+html,body{
     
+    max-width: 100%;
+    width: 100%;
 }
 
-div p{
-    
-}
-
-div:firstChild {
-    
-}
-
-* {     /*kaikki elementit*/
-    
-}
-
-
-[class] {   /*kaikki luokat*/   
-    
-}
-
-[class="fancy"] {
-    
-}
-
-.login_container{
+.loginForm{
     
     width: 400px;
-    margin: 30px auto;   /*ulkopuolelle tilaa, keskittää elementin*/
-    border: 2px solid grey; /*yhtenäinen viiva*/
-    border-radius: 5px;         /*pyöristetyt kulmat*/
-    padding: 20px; /*elementin sisälle tilaa*/    
-    background-color:lightblue;
+    margin: 30px auto;
+    border: 2px solid gray;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: lightblue;
 }
 
+.table_container
+{
+    
+    border: 3px solid black;
+    border-radius: 5px;
+    width: 70%;
+    /*margin: auto;*/
+    padding: 12px;
+}
+
+.flash-style{
+    
+    width: 30%;
+    margin: auto 0;
+    position: absolute;
+    top: 10%;
+    left: 450px;
+    
+}
+
+.map_container{
+	
+	width: 518px;
+	margin: 30px auto;
+	padding: 8px;
+	border: 2px solid gray;
+	border-radius: 5px;
+}
 
 

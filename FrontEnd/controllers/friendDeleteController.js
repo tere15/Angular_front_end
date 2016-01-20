@@ -2,9 +2,9 @@ main_module.controller('friendDeleteController',function($scope,friendDataFactor
     
      console.log('friendDeleteController loaded');
     
-    $scope.navbarData ={
-        urls:['/logout','#/modify','#/delete','#/new'],
-        texts:['Logout','Modify', 'Delete', 'New']
+    $scope.navbarData = {
+        urls:['/logout','#/new','#/modify','#/delete','#/location','http://www.kaleva.fi'],
+        texts:['Logout','New','Modify','Delete','Your Location','News']
     }
     
      $scope.deleteArray = [];
